@@ -511,9 +511,10 @@ class _XmlSerializable(Protocol):
                             pass  # skip the element
                         elif isinstance(v_ser, Element):
                             this_e.append(v_ser)
-                        elif isinstance(v_ser, list[Element]):
+                        elif isinstance(v_ser, list):
                             for element in v_ser:
-                                this_e.append(v_ser)
+                                assert isinstance(element, Element)
+                                this_e.append(element)
                         else:
                             SubElement(this_e, new_key).text = _xs_string_mod_apply(str(v_ser),
                                                                                     prop_info.xml_string_config)
